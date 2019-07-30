@@ -188,7 +188,7 @@ string key value =
     QueryParameter (Url.percentEncode key) (Url.percentEncode value)
 
 
-{-| Create a percent-encoded query parameter. If the string is empty, the parameter is omitted
+{-| Same as `string`, except if the string is empty, the parameter is omitted
 
     absolute ["products"] [ string "search" "hat" ]
     -- "/products?search=hat"
@@ -206,13 +206,10 @@ nonEmptyString key value =
         QueryParameter (Url.percentEncode key) (Url.percentEncode value)
 
 
-{-| Create a percent-encoded query parameter.
+{-| Create a percent-encoded query parameter from an `Int`.
 
     absolute ["products"] [ string "search" "hat", int "page" 2 ]
     -- "/products?search=hat&page=2"
-
-Writing `int key n` is the same as writing `string key (String.fromInt n)`.
-So this is just a convenience function, making your code a bit shorter!
 
 -}
 int : String -> Int -> QueryParameter
@@ -220,7 +217,7 @@ int key value =
     QueryParameter (Url.percentEncode key) (String.fromInt value)
 
 
-{-| Create a percent-encoded query parameter.
+{-| Create a percent-encoded query parameter from a `float`.
 
     absolute ["products"] [ string "search" "hat", float "maxprice" 9.99 ]
     -- "/products?search=hat&maxprice=9.99"
@@ -231,7 +228,7 @@ float key value =
     QueryParameter (Url.percentEncode key) (String.fromFloat value)
 
 
-{-| Create a percent-encoded query parameter.
+{-| `True` becomes "true" and `False` becomes "false"
 
     absolute ["products"] [ string "search" "hat", bool "discounted" True ]
     -- "/products?search=hat&discounted=true"
@@ -248,7 +245,8 @@ bool key value =
         )
 
 
-{-| Create a percent-encoded query parameter. If the value is Nothing, the parameter is omitted
+{-| Takes a `-> QueryParameter` function, for example [float](#float), and a value.
+    If the value is Nothing, the parameter is omitted
 
     absolute ["products"] [ string "search" "hat", maybe float "maxprice" (Just 9.99) ]
     -- "/products?search=hat&maxprice=9.99"
@@ -298,7 +296,7 @@ list encoder key values =
             |> string key
 
 
-{-| Make a comma-separated list surrounded by brackets (in case your API uses that list syntax).
+{-| Make a comma-separated list surrounded by brackets (in case your API uses this alternate syntax).
 If the list is empty, the parameter is omitted
 
     absolute ["products"] [ string "search" "hat", list int "sizes" [1,2,3] ]

@@ -3,7 +3,7 @@
     "name": "Herteby/url-builder-plus",
     "summary": "Replacement for the standard Url.Builder, with more convenience functions",
     "license": "BSD-3-Clause",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "exposed-modules": [
         "UrlBuilderPlus"
     ],
